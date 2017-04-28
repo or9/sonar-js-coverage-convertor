@@ -4,9 +4,12 @@
   "version": "0.0.1",
   "description": "Convert Istanbul coverage reports to SonarQube Generic Data format for Polymer app usage",
   "main": "index.js",
+  "bin": {
+	  "sonarCoverageConvertor": "index.js"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.build.ge.com/212590709/sonar-js-coverage-convertor"
+    "url": "git@github.build.ge.com:212590709/sonar-js-coverage-convertor.git"
   },
   "keywords": [
     "Sonar",
