@@ -2,7 +2,10 @@
 // @flow
 "use strict";
 
-console.info(`here we go execution`);
+const { Builder } = require("xml2js");
+
+console.info(`here we go executin`);
+console.log(`duration not provided for failures`);
 
 /*
 <testExecutions version="1">
@@ -23,5 +26,16 @@ console.info(`here we go execution`);
 		</testCase>
 	</file>
 </testExecutions>
+
+const reportStruct = jsObjContent.coverage.project
+		.find(project => project.package).package
+		.map(pkg => pkg.file)
+		.map(mapReportStruct)
+		.map(buildXmlFromObj)
+		.join("\n");
+
+	const reportXml = `<coverage version="1">
+		${reportStruct}
+	</coverage>`;
 */
 

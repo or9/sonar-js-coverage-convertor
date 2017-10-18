@@ -2,44 +2,27 @@
 // @flow
 "use strict";
 
-global.fs = require("fs");
-global.xml2js = require("xml2js");
-global.CLOVER_COVERAGE_LOCATION = process.env.argv.find("-p") || process.env.argv.find("--path") || "coverage/clover.xml";
+const { promisify } = require("util");
+// const params = require("./cli-options");
+const params = require("ara-cli-options");
+var { readFile, writeFile } = require("fs");
+console.log("readfile tho? ", typeof readFile);
+console.log("writefile tho? ", typeof writeFile);
+const __readFile = promisify(readFile);
+const __writeFile = promisify(writeFile);
+const parser = new require("xml2js").Parser();
+const parseString = promisify(parser.parseString);
 
-const parser = new xml2js.Parser();
-const runStyle = (process.env.argv.find("-s") || process.env.argv.find("--style") || "coverage").toUpperCase();
+const CLOVER_COVERAGE_LOCATION = params("location") || "coverage/clover.xml";
+const runStyle = params("--style", "-s") || "coverage";
+const generateGenericTestData = require(`./${runStyle}`);
 
-readFile(CLOVER_COVERAGE_LOCATION)
-	.then(parseString)
-	.then(runMethodPartial(runStyle))
-	.catch(console.error);
+(async () => {
+	const fileContent = await __readFile(CLOVER_COVERAGE_LOCATION);
+	const parsedFileContent = await parseString(fileContent);
 
-function readFile (fileLocation) {
-	console.info(`~readFile ${fileLocation}`);
+	const fileOutputContent = await generateGenericTestData(parsedFileContent);
 
-	return new Promise((resolve, reject) => {
-		fs.readFile(fileLocation, (err, data) => {
-			if (err) return reject(err);
-			else return resolve(data);
-		})
-	});
-}
+	const result = await __writeFile("coverage/sonar-report.xml", fileOutputContent);
+})();
 
-function parseString (fileData) {
-	console.info(`~fileData ${fileData}`);
-
-	return new Promise((resolve, reject) => {
-		parser.parseString(data, (parserErr, result) => {
-			if (parserErr) return reject(`Encountered an error ${parserErr}`);
-			return resolve(result);
-		});
-	});
-}
-
-function runMethodPartial (genericCoverageType = "coverage") {
-	console.info(`~runMethodPartial ${genericCoverageType}`);
-
-	return (parsedString) => new Promise((resolve, reject)) => {
-		require(genericCoverageType)(parsedString);
-	});
-}
