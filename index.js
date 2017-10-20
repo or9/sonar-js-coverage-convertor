@@ -3,11 +3,8 @@
 "use strict";
 
 const { promisify } = require("util");
-// const params = require("./cli-options");
 const params = require("ara-cli-options");
-var { readFile, writeFile } = require("fs");
-console.log("readfile tho? ", typeof readFile);
-console.log("writefile tho? ", typeof writeFile);
+const { readFile, writeFile } = require("fs");
 const __readFile = promisify(readFile);
 const __writeFile = promisify(writeFile);
 const parser = new require("xml2js").Parser();
@@ -21,8 +18,13 @@ const generateGenericTestData = require(`./${runStyle}`);
 	const fileContent = await __readFile(CLOVER_COVERAGE_LOCATION);
 	const parsedFileContent = await parseString(fileContent);
 
+	console.log("so that there clover parsedFileContent? ", parsedFileContent);
+
 	const fileOutputContent = await generateGenericTestData(parsedFileContent);
+	console.log("file out content --- ", fileOutputContent);
 
 	const result = await __writeFile("coverage/sonar-report.xml", fileOutputContent);
+
+	console.log("boom done wrote the file");
 })();
 

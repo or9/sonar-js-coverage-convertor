@@ -60,10 +60,11 @@ module.exports = (jsObjContent) => {
 				lineToCover: srcObj.line.map(line => {
 					line = line.$;
 					// $ indicates an attribute assignment
+					console.log("mapping lines to srcObj", line);
 					const lineObj = {
 						$: {
 							lineNumber: line.num,
-							covered: true
+							covered: !!parseInt(line.count) // line.count === 0 || 1 === "covered" || "not-covered"
 						}
 					};
 
