@@ -4,10 +4,10 @@ Convert Istanbul clover coverage reports to [SonarQube Generic Data](https://doc
 ### From npm run scripts  
 ```json
 {
-	…,
+	"…": "…",
 	"preSonarCoverage": "wct",
 	"sonarCoverage": "sonar-generic-coverage-convertor"
-	…
+	"…": "…"
 }
 ```
 `npm run sonarCoverage`  
