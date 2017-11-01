@@ -16,12 +16,7 @@ const { Builder } = require("xml2js");
 </coverage>
 */
 
-console.info(`doing coverage`);
-
 module.exports = (jsObjContent) => {
-	console.info(`writing file content`);
-	console.log(`jsObjContent tho`);
-	// console.log(jsObjContent.coverage.project.package);
 	// if it includes 0 files, package will be `undefined`
 	const reportStruct = jsObjContent.coverage.project
 		.find(project => project.package).package
@@ -33,11 +28,6 @@ module.exports = (jsObjContent) => {
 	const reportXml = `<coverage version="1">
 		${reportStruct}
 	</coverage>`;
-
-	// fs.writeFile("coverage/sonar-report.xml", reportXml, (err) => {
-	// 	if (err) throw new Error(`Failed to write xml ${err}`);
-	// 	else console.log(`Great success. File written to coverage/sonar-coverage.xml`);
-	// });
 
 	return reportXml;
 
@@ -60,7 +50,6 @@ module.exports = (jsObjContent) => {
 				lineToCover: srcObj.line.map(line => {
 					line = line.$;
 					// $ indicates an attribute assignment
-					console.log("mapping lines to srcObj", line);
 					const lineObj = {
 						$: {
 							lineNumber: line.num,
