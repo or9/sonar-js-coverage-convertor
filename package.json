@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.build.ge.com:212590709/sonar-js-coverage-convertor.git"
+    "url": "https://github.com/or9/sonar-js-coverage-convertor.git"
   },
   "keywords": [
     "Sonar",
