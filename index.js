@@ -9,8 +9,9 @@ const __readFile = promisify(readFile);
 const __writeFile = promisify(writeFile);
 const parser = new require("xml2js").Parser();
 const parseString = promisify(parser.parseString);
+const DIR = `${process.env.PWD}/coverage`;
 
-const CLOVER_COVERAGE_LOCATION = params("location") || "coverage/clover.xml";
+const CLOVER_COVERAGE_LOCATION = params("location") || `${DIR}/clover.xml`;
 const runStyle = params("--style", "-s") || "coverage";
 const generateGenericTestData = require(`./${runStyle}`);
 
@@ -21,7 +22,9 @@ const generateGenericTestData = require(`./${runStyle}`);
 
 	const fileOutputContent = await generateGenericTestData(parsedFileContent);
 
-	const result = await __writeFile("coverage/sonar-report.xml", fileOutputContent);
+	const result = await __writeFile(`${DIR}/sonar-report.xml`, fileOutputContent);
+
+	console.info(`Successfully wrote coverage to ${DIR}/sonar-report.xml`);
 
 })();
 

@@ -18,18 +18,39 @@ const { Builder } = require("xml2js");
 
 module.exports = (jsObjContent) => {
 	// if it includes 0 files, package will be `undefined`
-	const reportStruct = jsObjContent.coverage.project
-		.find(project => project.package).package
-		.map(pkg => pkg.file)
-		.map(mapReportStruct)
-		.map(buildXmlFromObj)
-		.join("\n");
+	const reportStruct = getReportStruct();
 
 	const reportXml = `<coverage version="1">
 		${reportStruct}
 	</coverage>`;
 
 	return reportXml;
+
+	function getReportStruct () {
+		const jsCoverageData = jsObjContent.coverage.project;
+
+		try {
+			return jsCoverageData
+				.find(project => project.metrics).metrics
+				.find(project => project.package).package
+				.map(pkg => pkg.file)
+				.map(mapReportStruct)
+				.map(buildXmlFromObj)
+				.join("\n");
+		} catch (err) {
+			console.error("Error creating coverage \n\t", err, "\ntrying again");
+			try {
+				return jsCoverageData
+					.find(project => project.package).package
+					.map(pkg => pkg.file)
+					.map(mapReportStruct)
+					.map(buildXmlFromObj)
+					.join("\n");
+			} catch (err) {
+				throw err;
+			}
+		}
+	}
 
 	function buildXmlFromObj (objForXml) {
 		return new Builder({
@@ -72,3 +93,4 @@ module.exports = (jsObjContent) => {
 		};
 	}
 };
+
