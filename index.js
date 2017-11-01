@@ -11,20 +11,25 @@ const parser = new require("xml2js").Parser();
 const parseString = promisify(parser.parseString);
 const DIR = `${process.env.PWD}/coverage`;
 
-const CLOVER_COVERAGE_LOCATION = params("location") || `${DIR}/clover.xml`;
+if (process.argv[2] === "help" || process.argv[2] ===  "-h" || process.argv[2] === "--help")) {
+	console.info(`-l --location: [./coverage]
+	             -s --style: [coverage]||execution`);
+	process.exit(0);
+}
+
+const CLOVER_COVERAGE_LOCATION = params("--location", "-l") || `${DIR}`;
 const runStyle = params("--style", "-s") || "coverage";
 const generateGenericTestData = require(`./${runStyle}`);
 
 (async () => {
-	const fileContent = await __readFile(CLOVER_COVERAGE_LOCATION);
+	const fileContent = await __readFile(`${CLOVER_COVERAGE_LOCATION}/clover.xml`);
 	const parsedFileContent = await parseString(fileContent);
-
 
 	const fileOutputContent = await generateGenericTestData(parsedFileContent);
 
-	const result = await __writeFile(`${DIR}/sonar-report.xml`, fileOutputContent);
+	const result = await __writeFile(`${CLOVER_COVERAGE_LOCATION}/sonar-report.xml`, fileOutputContent);
 
-	console.info(`Successfully wrote coverage to ${DIR}/sonar-report.xml`);
+	console.info(`Successfully wrote coverage to ${CLOVER_COVERAGE_LOCATION}/sonar-report.xml`);
 
 })();
 
