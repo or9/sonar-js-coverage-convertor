@@ -6,7 +6,7 @@ Convert Istanbul clover coverage reports to [SonarQube Generic Data](https://doc
 {
 	"…": "…",
 	"preSonarCoverage": "wct",
-	"sonarCoverage": "sonar-generic-coverage-convertor"
+	"sonarCoverage": "sonar-generic-coverage-convertor",
 	"…": "…"
 }
 ```
