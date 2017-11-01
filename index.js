@@ -18,13 +18,10 @@ const generateGenericTestData = require(`./${runStyle}`);
 	const fileContent = await __readFile(CLOVER_COVERAGE_LOCATION);
 	const parsedFileContent = await parseString(fileContent);
 
-	console.log("so that there clover parsedFileContent? ", parsedFileContent);
 
 	const fileOutputContent = await generateGenericTestData(parsedFileContent);
-	console.log("file out content --- ", fileOutputContent);
 
 	const result = await __writeFile("coverage/sonar-report.xml", fileOutputContent);
 
-	console.log("boom done wrote the file");
 })();
 
