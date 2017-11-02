@@ -4,7 +4,8 @@
   "description": "Convert Istanbul coverage reports to SonarQube Generic Data format for Polymer app usage",
   "main": "index.js",
   "bin": {
-    "sonar-generic-coverage-convertor": "index.js"
+    "sonar-generic-coverage-convertor": "index.js",
+    "istanbul-merge": "merge.js"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,11 @@
     "ara-cli-options": "0.0.1",
     "selenium-standalone": "^6.5.0",
     "xml2js": "^0.4.17"
+  },
+  "engineStrict": true,
+  "engines": {
+    "node": "8.*",
+    "npm": "*"
   },
   "scripts": {
     "test": "test",

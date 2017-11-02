@@ -11,7 +11,7 @@ const parser = new require("xml2js").Parser();
 const parseString = promisify(parser.parseString);
 const DIR = `${process.env.PWD}/coverage`;
 
-if (process.argv[2] === "help" || process.argv[2] ===  "-h" || process.argv[2] === "--help")) {
+if (process.argv[2] === "help" || process.argv[2] ===  "-h" || process.argv[2] === "--help") {
 	console.info(`-l --location: [./coverage]
 	             -s --style: [coverage]||execution`);
 	process.exit(0);
@@ -30,6 +30,5 @@ const generateGenericTestData = require(`./${runStyle}`);
 	const result = await __writeFile(`${CLOVER_COVERAGE_LOCATION}/sonar-report.xml`, fileOutputContent);
 
 	console.info(`Successfully wrote coverage to ${CLOVER_COVERAGE_LOCATION}/sonar-report.xml`);
-
 })();
 
