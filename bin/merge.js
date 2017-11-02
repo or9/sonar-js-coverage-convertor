@@ -1,35 +1,36 @@
 #!/usr/bin/env node
+
 "use strict";
 // @flow
 
-const { Collector, Report } = require('istanbul');
+const { Collector, Reporter } = require('istanbul');
 const files = process.argv.slice(2);
 const collector = new Collector();
-const report = Report.create('clover');
+const COVERAGE_LOCATION = process.env.COVERAGE_DIR || `${process.env.PWD}/coverage`;
+const reporter = new Reporter(false, COVERAGE_LOCATION);
 
 console.info("files: ", files);
 
+if (!files.length || files.includes("help") || files.includes("--help") || files.includes("-h")) {
+	displayUsage();
+}
+
 files.forEach(function (f) {
 	//each coverage object can have overlapping information about multiple files
-	collector.add(require(f));
+	collector.add(require(`${process.env.PWD}/${f}`));
 });
 
-collector.files().forEach(file => {
-	const fileCoverage = collector.fileCoverageFor(file);
-	console.info('Coverage for ', file, ' is:', JSON.stringify(fileCoverage));
-});
+reporter.add("clover");
+reporter.write(collector, false, err => {
+	if (!err) return;
 
-// convenience method: do not use this when dealing with a large number of files
-const finalCoverage = collector.getFinalCoverage();
-
-report.writeReport(collector, false);
-
-report.on('done', () => {
-	console.info('done writing report');
-	process.exit(0);
-});
-
-report.on('error', (err) => {
 	console.error(err);
 	process.exit(1);
 });
+
+function displayUsage() {
+	console.error("Usage:");
+	console.error("\tistanbul-merge file1 file2 file[n]");
+	console.error("\tCOVERAGE_DIR=./coverage istanbul-merge file1 file[n]");
+	process.exit(1);
+}

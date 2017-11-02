@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 // @flow
 "use strict";
 
@@ -38,4 +39,3 @@ const reportStruct = jsObjContent.coverage.project
 		${reportStruct}
 	</coverage>`;
 */
-

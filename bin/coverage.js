@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 // @flow
 "use strict";
 
@@ -16,7 +17,7 @@ const { Builder } = require("xml2js");
 </coverage>
 */
 
-module.exports = (jsObjContent) => {
+module.exports = jsObjContent => {
 	// if it includes 0 files, package will be `undefined`
 	const reportStruct = getReportStruct();
 
@@ -26,40 +27,29 @@ module.exports = (jsObjContent) => {
 
 	return reportXml;
 
-	function getReportStruct () {
+	function getReportStruct() {
 		const jsCoverageData = jsObjContent.coverage.project;
 
 		try {
-			return jsCoverageData
-				.find(project => project.metrics).metrics
-				.find(project => project.package).package
-				.map(pkg => pkg.file)
-				.map(mapReportStruct)
-				.map(buildXmlFromObj)
-				.join("\n");
+			return jsCoverageData.find(project => project.metrics).metrics.find(project => project.package).package.map(pkg => pkg.file).map(mapReportStruct).map(buildXmlFromObj).join("\n");
 		} catch (err) {
 			console.error("Error creating coverage \n\t", err, "\ntrying again");
 			try {
-				return jsCoverageData
-					.find(project => project.package).package
-					.map(pkg => pkg.file)
-					.map(mapReportStruct)
-					.map(buildXmlFromObj)
-					.join("\n");
+				return jsCoverageData.find(project => project.package).package.map(pkg => pkg.file).map(mapReportStruct).map(buildXmlFromObj).join("\n");
 			} catch (err) {
 				throw err;
 			}
 		}
 	}
 
-	function buildXmlFromObj (objForXml) {
+	function buildXmlFromObj(objForXml) {
 		return new Builder({
 			headless: true,
 			explicitRoot: false
 		}).buildObject(objForXml);
 	}
 
-	function mapReportStruct (srcObj) {
+	function mapReportStruct(srcObj) {
 		srcObj = srcObj[0];
 
 		return {
@@ -84,7 +74,6 @@ module.exports = (jsObjContent) => {
 
 						lineObj.$.branchesToCover = totalLinesToCover;
 						lineObj.$.coveredBranches = linesCovered;
-
 					}
 
 					return lineObj;
@@ -93,4 +82,3 @@ module.exports = (jsObjContent) => {
 		};
 	}
 };
-

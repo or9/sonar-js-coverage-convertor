@@ -4,8 +4,8 @@
   "description": "Convert Istanbul coverage reports to SonarQube Generic Data format for Polymer app usage",
   "main": "index.js",
   "bin": {
-    "sonar-generic-coverage-convertor": "index.js",
-    "istanbul-merge": "merge.js"
+    "sonar-generic-coverage-convertor": "bin/index.js",
+    "istanbul-merge": "bin/merge.js"
   },
   "repository": {
     "type": "git",
@@ -21,16 +21,18 @@
   "author": "Abdur Rahman",
   "license": "MIT",
   "devDependencies": {
-    "@babel/preset-env": "^7.0.0-beta.4",
+    "@babel/preset-env": "^7.0.0-beta.5",
     "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
     "babel-preset-flow": "^6.23.0",
     "flow-bin": "^0.44.2",
-    "polymer-cli": "^1.2.0"
+    "polymer-cli": "^1.5.7",
+    "selenium-standalone": "^6.11.0"
   },
   "dependencies": {
     "ara-cli-options": "0.0.1",
-    "selenium-standalone": "^6.5.0",
-    "xml2js": "^0.4.17"
+    "xml2js": "^0.4.19"
   },
   "engineStrict": true,
   "engines": {
@@ -39,7 +41,9 @@
   },
   "scripts": {
     "test": "test",
-    "build": "",
-    "flow": "flow"
+    "build": "babel src --out-dir bin",
+    "watch": "babel --watch src/*.js --out-file bin/*.js",
+    "flow": "flow",
+    "flow:stop": "flow stop"
   }
 }
