@@ -12,9 +12,7 @@ const parseString = promisify(parser.parseString);
 const DIR = `${process.env.PWD}/coverage`;
 
 if (process.argv[2] === "help" || process.argv[2] ===  "-h" || process.argv[2] === "--help") {
-	console.info(`-l --location: [./coverage]
-	             -s --style: [coverage]||execution`);
-	process.exit(0);
+	displayUsage();
 }
 
 const CLOVER_COVERAGE_LOCATION = params("--location", "-l") || `${DIR}`;
@@ -32,3 +30,9 @@ const generateGenericTestData = require(`./${runStyle}`);
 	console.info(`Successfully wrote coverage to ${CLOVER_COVERAGE_LOCATION}/sonar-report.xml`);
 })();
 
+
+function displayUsage () {
+	console.info(`-l --location: [./coverage]
+	             -s --style: [coverage]||execution`);
+	process.exit(0);
+}

@@ -1,12 +1,15 @@
 # sonar-js-coverage-convertor
 Convert Istanbul clover coverage reports to [SonarQube Generic Data](https://docs.sonarqube.org/display/SONAR/Generic+Test+Data) format for Polymer app usage.  
 ## Usage
+If you have multiple coverage files which you need to merge, do so prior to running the convertor. See `Merge Module` for details.  
+
 ### From npm run scripts  
 ```json
 {
 	"…": "…",
 	"preSonarCoverage": "wct",
-	"sonarCoverage": "sonar-generic-coverage-convertor",
+	"sonarCoverage": "istanbul-merge coverage-server/coverage-final.json coverage-client/coverage-final.json",
+	"postsSonarCoverage": "sonar-generic-coverage-convertor"
 	"…": "…"
 }
 ```
@@ -38,5 +41,15 @@ Convert Istanbul clover coverage reports to [SonarQube Generic Data](https://doc
 	}
 }
 
+```
+
+### Merge Module  
+This module is used to merge multiple coverage reports prior to converting the single resulting report to Sonarqube's generic coverage format.  
+```javascript
+/**
+ * @module istanbul-merge
+ * @param filePath[0] {string}
+ * @returns {status}
+ */
 ```
 ## Dev  
