@@ -47,7 +47,7 @@
   "scripts": {
     "test": "nyc --report-dir ./coverage --reporter lcov --reporter json --reporter clover mocha src/**/*.spec.js",
     "mocha": "mocha -R spec src/**/*.spec.js",
-    "build": "babel src --out-dir bin",
+    "build": "babel src/*.js --exclude src/*.spec.js --out-dir bin",
     "watch": "babel --watch src/*.js --out-file bin/*.js",
     "flow": "flow",
     "flow:stop": "flow stop"

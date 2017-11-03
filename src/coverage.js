@@ -32,7 +32,7 @@ module.exports = (jsObjContent) => {
 		try {
 			return jsCoverageData
 				.find(project => project.metrics).metrics
-				.find(project => project.package).package
+				.find(metric => metric.package).package
 				.map(pkg => pkg.file)
 				.map(mapReportStruct)
 				.map(buildXmlFromObj)
