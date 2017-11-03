@@ -3,7 +3,7 @@
 // @flow
 "use strict";
 
-const { promisify } = require("util");
+const { promisify } = require("bluebird");
 const params = require("ara-cli-options");
 const { readFile, writeFile } = require("fs");
 const __readFile = promisify(readFile);

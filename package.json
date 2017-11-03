@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "ara-cli-options": "0.0.1",
+    "bluebird": "^3.5.1",
     "xml2js": "^0.4.19"
   },
   "engineStrict": true,
