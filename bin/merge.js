@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-
 "use strict";
 // @flow
 
@@ -11,24 +10,32 @@ const reporter = new Reporter(false, COVERAGE_LOCATION);
 
 console.info("files: ", files);
 
-if (!files.length || files.includes("help") || files.includes("--help") || files.includes("-h")) {
+if (!files.length || (files.includes("help") || files.includes("--help") || files.includes("-h"))) {
 	displayUsage();
 }
 
 files.forEach(function (f) {
-	//each coverage object can have overlapping information about multiple files
-	collector.add(require(`${process.env.PWD}/${f}`));
+	const filePath = `${process.env.PWD}/${f}`;
+
+	try {
+		let file = require(filePath);
+		//each coverage object can have overlapping information about multiple files
+		collector.add(file);
+
+	} catch (err) {
+		console.error("File doesn't exist", filePath);
+	}
 });
 
 reporter.add("clover");
-reporter.write(collector, false, err => {
+reporter.write(collector, false, (err) => {
 	if (!err) return;
 
 	console.error(err);
 	process.exit(1);
 });
 
-function displayUsage() {
+function displayUsage () {
 	console.error("Usage:");
 	console.error("\tistanbul-merge file1 file2 file[n]");
 	console.error("\tCOVERAGE_DIR=./coverage istanbul-merge file1 file[n]");

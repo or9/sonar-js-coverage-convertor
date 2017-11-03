@@ -15,8 +15,16 @@ if (!files.length || (files.includes("help") || files.includes("--help") || file
 }
 
 files.forEach(function (f) {
-	//each coverage object can have overlapping information about multiple files
-	collector.add(require(`${process.env.PWD}/${f}`));
+	const filePath = `${process.env.PWD}/${f}`;
+
+	try {
+		let file = require(filePath);
+		//each coverage object can have overlapping information about multiple files
+		collector.add(file);
+
+	} catch (err) {
+		console.error("File doesn't exist", filePath);
+	}
 });
 
 reporter.add("clover");

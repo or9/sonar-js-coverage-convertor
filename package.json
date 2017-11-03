@@ -26,9 +26,14 @@
     "babel-core": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-flow": "^6.23.0",
+    "chai": "^4.1.2",
     "flow-bin": "^0.44.2",
+    "mocha": "^4.0.1",
+    "mockery": "^2.1.0",
+    "nyc": "^11.3.0",
     "polymer-cli": "^1.5.7",
-    "selenium-standalone": "^6.11.0"
+    "selenium-standalone": "^6.11.0",
+    "sinon": "^4.1.0"
   },
   "dependencies": {
     "ara-cli-options": "0.0.1",
@@ -40,7 +45,8 @@
     "npm": "*"
   },
   "scripts": {
-    "test": "test",
+    "test": "nyc --report-dir ./coverage --reporter lcov --reporter json --reporter clover mocha src/**/*.spec.js",
+    "mocha": "mocha -R spec src/**/*.spec.js",
     "build": "babel src --out-dir bin",
     "watch": "babel --watch src/*.js --out-file bin/*.js",
     "flow": "flow",
