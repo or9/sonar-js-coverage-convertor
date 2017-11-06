@@ -28,6 +28,7 @@ files.forEach(function (f) {
 });
 
 reporter.add("clover");
+reporter.add("lcov");
 reporter.write(collector, false, (err) => {
 	if (!err) return;
 

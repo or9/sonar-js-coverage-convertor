@@ -8,6 +8,8 @@ console.info(`here we go executin`);
 console.log(`duration not provided for failures`);
 
 /*
+Unlike for coverage reports, the files present in the report must be test file names, not source code files covered by tests.
+
 <testExecutions version="1">
 	<file path="testx/ClassOneTest.xoo">
 		<testCase name="test1" duration="5"/>		testCase 	: required

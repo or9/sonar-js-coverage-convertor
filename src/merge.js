@@ -16,6 +16,7 @@ if (!files.length || (files.includes("help") || files.includes("--help") || file
 
 files.forEach(function (f) {
 	const filePath = `${process.env.PWD}/${f}`;
+
 	try {
 		let file = require(filePath);
 		//each coverage object can have overlapping information about multiple files
@@ -27,6 +28,7 @@ files.forEach(function (f) {
 });
 
 reporter.add("clover");
+reporter.add("lcov");
 reporter.write(collector, false, (err) => {
 	if (!err) return;
 

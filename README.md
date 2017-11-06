@@ -1,5 +1,5 @@
 # sonar-js-coverage-convertor
-Convert Istanbul clover coverage reports to [SonarQube Generic Data](https://docs.sonarqube.org/display/SONAR/Generic+Test+Data) format for Polymer app usage.  
+Because Sonarqube is unable to generate coverage for Javascript applications, this module will convert Istanbul reports to a generic format which Sonarqube can interpret. Convert Istanbul clover coverage reports to [SonarQube Generic Data](https://docs.sonarqube.org/display/SONAR/Generic+Test+Data) format for Polymer app usage.  
 ## Usage
 If you have multiple coverage files which you need to merge, do so prior to running the convertor. See `Merge Module` for details.  
 
