@@ -20,8 +20,8 @@ If you have multiple coverage files which you need to merge, do so prior to runn
 {
 	"plugins": {
 		"istanbul": {
-			"dir": "./coverage",
-			"reporters": ["lcov", "clover"],
+			"dir": "./coverage-client",
+			"reporters": ["lcov", "clover", "json"],
 			"include": [
 				"**/spec*.html",
 				"**/spec*.js"
@@ -43,13 +43,15 @@ If you have multiple coverage files which you need to merge, do so prior to runn
 
 ```
 
+### Example `mocha`  
+Generate server-side coverage reports  
+`nyc --report-dir ./coverage-server --reporter lcov --reporter json --reporter clover mocha server/**/*.spec.js`   
+
 ### Merge Module  
 This module is used to merge multiple coverage reports prior to converting the single resulting report to Sonarqube's generic coverage format.  
-```javascript
-/**
- * @module istanbul-merge
- * @param filePath[0] {string}
- * @returns {status}
- */
+```bash
+COVERAGE_DIR=coverage istanbul-merge coverageDir1/coverage-final.json coverageDir2/coverage-final.json
+COVERAGE_DIR=outDir istanbul-merge dir1/in.json dir2/in.json
+istanbul-merge dir1/in.json dir2/in.json
 ```
 ## Dev  
