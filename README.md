@@ -7,9 +7,9 @@ If you have multiple coverage files which you need to merge, do so prior to runn
 ```json
 {
 	"…": "…",
-	"preSonarCoverage": "wct",
+	"presonarCoverage": "wct",
 	"sonarCoverage": "istanbul-merge coverage-server/coverage-final.json coverage-client/coverage-final.json",
-	"postsSonarCoverage": "sonar-generic-coverage-convertor"
+	"postsonarCoverage": "sonar-generic-coverage-convertor",
 	"…": "…"
 }
 ```
