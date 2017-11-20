@@ -1,0 +1,38 @@
+{
+	"skipSeleniumInstall": false,
+	"compile": "auto",
+	"skip-update-check": false,
+	"verbose": false,
+	"suites": ["spec.*"],
+	"simpleOutput": false,
+	"expanded": true,
+	"plugins": {
+		"sauce": {
+			"disabled": true
+		},
+		"local": {
+			"browsers": ["chrome"]
+		},
+		"istanbul": {
+			"dir": "./coverage",
+			"reporters": ["text-summary", "text", "json", "lcov", "clover"],
+			"include": [
+				"**/*.html",
+				"**/*.js"
+			],
+			"exclude": [
+				"**/polymer/polymer.js",
+				"**/platform/platform.js",
+				"**/bower_components/**",
+				"**/node_modules/**",
+				"**/*spec*.html",
+				"**/*spec*.js"
+			],
+			"thresholds": {
+				"global": {
+					"statements": 100
+				}
+			}
+		}
+	}
+}

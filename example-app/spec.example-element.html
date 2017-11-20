@@ -1,0 +1,28 @@
+<!doctype html><html><head><meta charset="utf-8">
+	<script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+	<script src="/components/web-component-tester/browser.js"></script>
+	<link rel="import" href="./example-element.html">
+</head><body>
+	<awesome-element id="example-element-fixture"></awesome-element>
+	<script>
+	describe('<example-element>', () => {
+		beforeEach(done => {
+			window.ee = fixture("example-element-fixture");
+			flush(done);
+		});
+
+		afterEach(done => {
+			delete window.ee;
+			flush(done);
+		});
+
+		it("has prop1", () => {
+			assert.equal(ee.prop1, "I am the example-element");
+		});
+
+		it("true is true", () => {
+			assert.equal("true", "true");
+		});
+	});
+	</script>
+</body></html>

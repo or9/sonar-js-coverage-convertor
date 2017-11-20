@@ -1,0 +1,38 @@
+{
+  "name": "example-app",
+  "version": "1.0.0",
+  "description": "example element for testing",
+  "main": "index.html",
+  "directories": {
+    "test": "test"
+  },
+  "author": "or9",
+  "license": "MIT",
+  "devDependencies": {
+    "chromedriver": "^2.33.2",
+    "nyc": "^11.2.1",
+    "sonar-js-coverage-convertor": "^0.1.0",
+    "wct-local": "^2.0.15",
+    "web-component-tester": "4.3.1",
+    "web-component-tester-istanbul": "*",
+  },
+  "dependencies": {
+    "is-absolute": "^1.0.0"
+  },
+  "engines": {
+    "node": "8.*",
+    "npm": "*"
+  },
+  "scripts": {
+    "pretest:client": "sonar-coverage-copy",
+    "test:client": "CHROME_ARGS=\"${CHROME_ARGS:-no-sandbox}\" NODE_TLS_REJECT_UNAUTHORIZED=0 wct --compile auto",
+    "test:server": "nyc --report-dir ./coverage-server --reporter json --reporter clover mocha **/*.spec.js",
+    "pretest": "./scripts/wct-setup.sh",
+    "pretest": "npm run test:client",
+    "test": "npm run test:server",
+    "posttest": "npm run sonarcoverage",
+    "presonarcoverage": "COVERAGE_DIR=coverage istanbul-merge ./coverage-server/coverage-final.json ./coverage-client/coverage-final.json",
+    "sonarcoverage": "sonar-generic-coverage-convertor --location ./coverage",
+    "coverage:execution": "node ../index.js --style exec"
+  }
+}
