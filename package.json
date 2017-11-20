@@ -5,7 +5,8 @@
   "main": "index.js",
   "bin": {
     "sonar-generic-coverage-convertor": "bin/index.js",
-    "istanbul-merge": "bin/merge.js"
+    "istanbul-merge": "bin/merge.js",
+    "sonar-coverage-copy": "bin/copyNodeModulesTestFiles.js"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,8 @@
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-preset-env": "^1.6.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-es2016": "^6.24.1",
     "babel-preset-flow": "^6.23.0",
     "chai": "^4.1.2",
     "flow-bin": "^0.44.2",
@@ -38,6 +41,7 @@
   "dependencies": {
     "ara-cli-options": "0.0.1",
     "bluebird": "^3.5.1",
+    "ncp": "^2.0.0",
     "xml2js": "^0.4.19"
   },
   "engineStrict": true,
@@ -46,9 +50,9 @@
     "npm": "*"
   },
   "scripts": {
-    "test": "nyc --report-dir ./coverage --reporter lcov --reporter json --reporter clover mocha src/**/*.spec.js",
+    "test": "nyc --report-dir ./coverage --reporter json --reporter clover mocha src/**/*.spec.js",
     "mocha": "mocha -R spec src/**/*.spec.js",
-    "build": "babel src/*.js --exclude src/*.spec.js --out-dir bin",
+    "build": "babel src --out-dir bin",
     "watch": "babel --watch src/*.js --out-file bin/*.js",
     "flow": "flow",
     "flow:stop": "flow stop"
