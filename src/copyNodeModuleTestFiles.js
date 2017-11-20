@@ -16,7 +16,7 @@ const DEST = Object.freeze({
 	SELENIUM: `node_modules/wct-local/node_modules/`
 });
 
-for (let key in PATH.SRC) {
+for (let key in SRC) {
 	ncp(SRC[key], DEST[key], err => {
 		if (err) return console.error(err);
  		else console.info(`Done writing ${DEST[key]}`);
