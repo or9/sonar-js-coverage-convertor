@@ -2,7 +2,7 @@
 // @flow
 "use strict";
 
-const { promisify } = require("util");
+const promisify = require('babel-promisify');
 const params = require("ara-cli-options");
 const { readFile, writeFile } = require("fs");
 const __readFile = promisify(readFile);

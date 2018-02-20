@@ -1,5 +1,9 @@
 {
-  "presets": ["es2016"],
+  "presets": [["babel-preset-env", {
+    "targets": {
+      "node": "6.10"
+    }
+  }]],
   "comments": false,
   "minified": true,
   "ignore": ["*.spec.js"]
