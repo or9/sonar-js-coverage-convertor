@@ -22,7 +22,6 @@
   "author": "Abdur Rahman",
   "license": "MIT",
   "devDependencies": {
-    "@babel/preset-env": "^7.0.0-beta.5",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-preset-env": "^1.6.1",
@@ -40,13 +39,14 @@
   },
   "dependencies": {
     "ara-cli-options": "0.0.1",
+    "babel-promisify": "^1.0.0",
     "bluebird": "^3.5.1",
     "ncp": "^2.0.0",
     "xml2js": "^0.4.19"
   },
   "engineStrict": true,
   "engines": {
-    "node": "8.*",
+    "node": ">= 6.10.0",
     "npm": "*"
   },
   "scripts": {
